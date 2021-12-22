@@ -1,16 +1,8 @@
-# imdb
+# Movie-app
 
-A new Flutter project.
+Discover Movies and TV shows
 
-## Getting Started
+![Movie_home](https://user-images.githubusercontent.com/40262579/147108116-664ad12d-3db7-4101-b3dc-87c97cdd4130.png)
+![Movie_detail](https://user-images.githubusercontent.com/40262579/147108122-9e353cd2-7f03-4cd1-9be1-a641b9d4fe97.png)
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+This project uses API http://www.omdbapi.com/ for discovering movies and series.
