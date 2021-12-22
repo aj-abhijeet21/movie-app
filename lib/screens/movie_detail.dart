@@ -1,7 +1,4 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:imdb/models/movie_info.dart';
 import 'package:imdb/utilities/movie_services.dart';
 
@@ -21,48 +18,112 @@ class MovieDetail extends StatelessWidget {
         future: getMovie(this.imdbId),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return Container(
-              padding: EdgeInsets.all(20.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    padding: EdgeInsets.symmetric(vertical: 10),
-                    alignment: Alignment.center,
-                    child: Image.network(snapshot.data!.poster, width: 200),
-                  ),
-                  Text(
-                    snapshot.data!.plot,
-                    textAlign: TextAlign.justify,
-                  ),
-                  Text(
-                    'Year: ' + snapshot.data!.year,
-                  ),
-                  Text(
-                    'Genre: ' + snapshot.data!.genre,
-                  ),
-                  Text(
-                    'Director: ' + snapshot.data!.director,
-                  ),
-                  Text(
-                    'Runtime: ' + snapshot.data!.runtime,
-                  ),
-                  Text(
-                    'Rating: ' + snapshot.data!.rating,
-                  ),
-                  Text(
-                    'IMDB Rating: ' + snapshot.data!.imdbRating,
-                  ),
-                  Text(
-                    'MetScore: ' + snapshot.data!.metaScore,
-                  ),
-                ],
+            return SingleChildScrollView(
+              child: Container(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    (snapshot.data!.poster != "N/A")
+                        ? Center(
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(5.0),
+                              child: Image.network(
+                                snapshot.data!.poster,
+                                width: 200,
+                                // fit: BoxFit.fill,
+                              ),
+                            ),
+                          )
+                        : Center(
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(5.0),
+                              child: Image.asset(
+                                "assets/images/No_image_available.png",
+                                width: 200,
+                              ),
+                            ),
+                          ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    Text(
+                      snapshot.data!.plot,
+                      textAlign: TextAlign.justify,
+                      style: const TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.w500),
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    Text(
+                      'Year: ' + snapshot.data!.year,
+                      style: const TextStyle(
+                          fontSize: 15, fontWeight: FontWeight.w300),
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      'Genre: ' + snapshot.data!.genre,
+                      style: const TextStyle(
+                          fontSize: 15, fontWeight: FontWeight.w300),
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      'Director: ' + snapshot.data!.director,
+                      style: const TextStyle(
+                          fontSize: 15, fontWeight: FontWeight.w300),
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      'Runtime: ' + snapshot.data!.runtime,
+                      style: const TextStyle(
+                          fontSize: 15, fontWeight: FontWeight.w300),
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      'Rating: ' + snapshot.data!.rating,
+                      style: const TextStyle(
+                          fontSize: 15, fontWeight: FontWeight.w300),
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(8.0),
+                      decoration: BoxDecoration(
+                        color: snapshot.data!.imdbRating != "N/A"
+                            ? double.parse(snapshot.data!.imdbRating) > 7.0
+                                ? Colors.green
+                                : Colors.blue
+                            : Colors.red,
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(15),
+                        ),
+                      ),
+                      child: Text(
+                        'IMDB Rating: ' + snapshot.data!.imdbRating,
+                        style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             );
           } else if (snapshot.hasError) {
             return Text(snapshot.error.toString());
           }
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         },

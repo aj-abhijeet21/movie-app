@@ -13,20 +13,20 @@ class MovieList extends StatelessWidget {
     return Container(
       // decoration: const BoxDecoration(color: Colors.grey),
       child: ListView.separated(
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         shrinkWrap: true,
         padding: const EdgeInsets.all(8.0),
-        itemCount: this.movies.length,
+        itemCount: movies.length,
         itemBuilder: (context, index) {
           return GestureDetector(
             child: MovieCard(
-              movie: this.movies[index],
+              movie: movies[index],
             ),
-            onTap: () => this.itemClick(this.movies[index]),
+            onTap: () => itemClick(movies[index]),
           );
         },
         separatorBuilder: (BuildContext context, int index) {
-          return SizedBox(
+          return const SizedBox(
             height: 10,
           );
         },

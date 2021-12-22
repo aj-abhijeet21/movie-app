@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:imdb/models/movie_info.dart';
 import 'package:imdb/models/movies.dart';
-import 'package:imdb/widgets/movie_list.dart';
 
 Future<List<Movie>> searchMovie(query) async {
   var url = Uri.parse('http://www.omdbapi.com/?s=$query&apikey=8923dcd0');
@@ -13,9 +12,9 @@ Future<List<Movie>> searchMovie(query) async {
     Map jsonData = json.decode(response.body);
     if (jsonData['Response'] == 'True') {
       var data = jsonData['Search'] as List;
-      print(data);
+      // print(data);
       var movieList = data.map((item) => Movie.fromJson(item)).toList();
-      print(movieList.length);
+      // print(movieList.length);
       return movieList;
     } else {
       throw Exception(jsonData['Error']);

@@ -37,11 +37,17 @@ class _MoviesHomeState extends State<MoviesHome> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Search movies'),
+        title: const Text(
+          'Home',
+          style: TextStyle(
+              color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),
+        ),
+        backgroundColor: Colors.white,
+        elevation: 0.0,
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: const EdgeInsets.all(15.0),
           child: Column(
             children: [
               Row(
@@ -49,22 +55,38 @@ class _MoviesHomeState extends State<MoviesHome> {
                   Expanded(
                     child: TextField(
                       controller: searchTextController,
-                      decoration: const InputDecoration(
-                        hintText: 'Search movie name',
+                      decoration: InputDecoration(
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            setState(
+                              () {
+                                searchText = searchTextController.text;
+                              },
+                            );
+                          },
+                          icon: const Icon(Icons.search),
+                          color: Colors.black,
+                        ),
+                        enabledBorder: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.zero),
+                          borderSide: BorderSide(
+                            color: Colors.black,
+                            width: 2.0,
+                          ),
+                        ),
+                        hintText: 'Search for movies',
+                        border: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.zero),
+                          borderSide: BorderSide(
+                            color: Colors.black,
+                            width: 2.0,
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                  IconButton(
-                    onPressed: () {
-                      setState(
-                        () {
-                          searchText = searchTextController.text;
-                        },
-                      );
-                      // getMovie();
-                      // searchMovie(searchText);
-                    },
-                    icon: const Icon(Icons.search),
+                  const SizedBox(
+                    width: 10,
                   ),
                 ],
               ),
@@ -83,11 +105,15 @@ class _MoviesHomeState extends State<MoviesHome> {
                         );
                       } else if (snapshot.connectionState ==
                           ConnectionState.waiting) {
-                        return Center(
+                        return const Center(
                           child: CircularProgressIndicator(),
                         );
                       } else {
-                        return Text(snapshot.error.toString());
+                        return Center(
+                          child: Text(
+                            snapshot.error.toString(),
+                          ),
+                        );
                       }
                     }),
             ],

@@ -10,7 +10,14 @@ class MovieCard extends StatelessWidget {
     return Container(
       height: 150,
       padding: const EdgeInsets.all(8.0),
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+              blurRadius: 20.0,
+              offset: Offset(2.0, 2.0),
+              spreadRadius: 1.0,
+              color: Colors.grey),
+        ],
         borderRadius: BorderRadius.all(
           Radius.circular(5),
         ),
@@ -20,26 +27,42 @@ class MovieCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Column(
-            children: [
-              Image.network(
-                movie.imageUrl == 'N/A'
-                    ? "assets/images/No_image_available.png"
-                    : movie.imageUrl,
-                height: 120,
-              ),
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              (movie.imageUrl != "N/A")
+                  ? ClipRRect(
+                      borderRadius: BorderRadius.circular(5.0),
+                      child: Image.network(
+                        movie.imageUrl,
+                        height: 130,
+                        fit: BoxFit.fill,
+                      ),
+                    )
+                  : ClipRRect(
+                      borderRadius: BorderRadius.circular(5.0),
+                      child: Image.asset(
+                        "assets/images/No_image_available.png",
+                        width: 100,
+                      ),
+                    ),
             ],
           ),
+          const SizedBox(width: 20),
           Expanded(
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   movie.title,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.bold),
                 ),
-                Text(movie.year),
-                Text(movie.imdbID),
+                Text(movie.type),
+                Text('Release year: ${movie.year}'),
               ],
             ),
           ),

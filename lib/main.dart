@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:imdb/home.dart';
 import 'package:imdb/screens/movie_home.dart';
 
 void main() {
@@ -14,10 +13,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'IMDB App',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.green,
       ),
-      home: MoviesHome(),
+      home: const MoviesHome(),
     );
   }
 }
